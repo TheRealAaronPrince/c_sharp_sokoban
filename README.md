@@ -8,8 +8,9 @@ The two important files are the main code and the graphics code, all other code 
 https://sourceforge.net/projects/sharpdevelop/
 
 use the arrow keys to move and spcae to reset the level, and restart the game
+
 MainForm.cs is not fully commented yet.
 I mainly focused on making sure the graphics was well commented in case anyone wanted to use it for their own projects.
 If there are requests for it, I will fully comment and reupload the MainForm.cs
 Future itterations of my graphics driver may include a variable sized output bmp.
-This would be uploaded to a separate project, the link to which will be added here.
+all graphics related files will be found here https://github.com/TheRealAaronPrince/C_Sharp_graphics_for_windows_form/tree/main
