@@ -14,8 +14,9 @@ public class render
 		//defining the bmp ready for pixel data
 		private Bitmap bmp = new Bitmap(320,240, PixelFormat.Format32bppRgb);
 		//defining the output bitmap (8x larger to reduce bluring when stretching to fill screen)
-		public Bitmap output = new Bitmap(2560,1920,PixelFormat.Format32bppRgb);
-		//loop to set a default color for every pixel
+		public static Bitmap output = new Bitmap(2560,1920,PixelFormat.Format32bppRgb);
+		Graphics gr = Graphics.FromImage((System.Drawing.Image)output);
+	//loop to set a default color for every pixel
 		public void clearImg()
 		{
 			//number of pixels in the image
@@ -88,15 +89,20 @@ public class render
 				//see pixelPaint
 				int x = i % 320;
 				int y = ((i - (i % 320)) / 320);
-				//testing if a pixel is different to the array(for optimisation)
-				if(bmp.GetPixel(x,y)!= Color.FromArgb(255, pixelBuffer[(((y * 320)+ x)*4)], pixelBuffer[(((y * 320)+ x)*4)+1], pixelBuffer[(((y * 320)+ x)*4)+2]))
+				var index = (((y * 320) + x) * 4);
+				var t1 = pixelBuffer[index];
+				var t2 = pixelBuffer[index + 1];
+				var t3 = pixelBuffer[index + 2];
+			//testing if a pixel is different to the array(for optimisation)
+			var c = Color.FromArgb(255, t1, t2, t3);
+				if (bmp.GetPixel(x,y)!= c)
 				{
-					//setting the pixels to the ARGB color
-					bmp.SetPixel(x ,y ,Color.FromArgb(255, pixelBuffer[(((y * 320)+ x)*4)], pixelBuffer[(((y * 320)+ x)*4)+1], pixelBuffer[(((y * 320)+ x)*4)+2]));
+						//setting the pixels to the ARGB color
+						bmp.SetPixel(x ,y ,c);
 				}
 			}
 			//enlarging the image to reduce scalling blur
-			Graphics gr = Graphics.FromImage((System.Drawing.Image)output);
+			//Graphics gr = Graphics.FromImage((System.Drawing.Image)output);
 			gr.InterpolationMode = InterpolationMode.NearestNeighbor;
 			gr.PixelOffsetMode = PixelOffsetMode.Half;
 			gr.DrawImage(bmp,new Rectangle(0,0,output.Width,output.Height),0,0,320,240,GraphicsUnit.Pixel);
@@ -109,7 +115,7 @@ public class render
 		//40 x 30, 8x8 tiles
 		private int[] tilemap = new int[4800];
 		//the fist dimension is the tile's index, the other two dimensions are Y then X, to make it easier to code by hand
-		public string[,,] tileArray;
+		public int[,,] tileArray;
 		//initializing the render class
 		public void init()
 		{
@@ -121,9 +127,9 @@ public class render
 			render.generate();
 		}
 		//defining the character tiles (using the ASCII standard for the text characters)
-		private void defTiles(string fore = "f", string back = "b")
+		private void defTiles(int fore = 0, int back = 1)
 		{
-			tileArray = new string[,,]
+			tileArray = new int[,,]
 			{
 {	//	0	0x0 EDGING
 	{back,back,back,back,back,back,back,back},
@@ -2850,7 +2856,7 @@ public class render
 		public void pushTileArray(bool update = true)
 		{
 			//see render clearImg
-			for(int i = 0; i < 76800; i++)
+			for(int i = 0; i < render.colorArray.Length; i++)
 			{
 				//pixels of a tile
 				int pixelX = i % 8;
@@ -2861,18 +2867,10 @@ public class render
 				//tilemap position
 				int j = (tileY * 40 + tileX)*4;
 				//only updating the pixel array if the tile changed flag is set(for optimisation)
-				if(tilemap[j+3] == 1)
+				if(tilemap[j+3] == 1)				
 				{
-					//if the pixel of the tile should be the foreground color
-					if(tileArray[tilemap[j],pixelY, pixelX] == "f")
-					{
-						render.colorArray[i] = tilemap[j+1];
-					}
-					//if the pixel of the tile should be the background color
-					else if(tileArray[tilemap[j],pixelY, pixelX] == "b")
-					{
-						render.colorArray[i] = tilemap[j+2];
-					}
+					var ta = tileArray[tilemap[j], pixelY, pixelX];
+					render.colorArray[i] = tilemap[j + ta + 1];					
 					//setting the tile changed flag to zero to indicate the tile has been drawn
 					if((pixelX + 1 ) * (pixelY + 1) == 64)
 					{
@@ -2886,23 +2884,10 @@ public class render
 				render.generate();
 			}
 		}
-		public void readTileArray(int x, int y, string str, out int val)
+		public void readTileArray(int x, int y, out int val)
 		{
-			if(str == "index")
-			{
-				val = tilemap[4*((y*40)+x)];
-			}
-			else if(str == "fore")
-			{
-				val = tilemap[4*((y*40)+x)+1];
-			}
-			else if(str == "back")
-			{
-				val = tilemap[4*((y*40)+x)+2];
-			}
-			else
-			{
-				val = 0;
-			}
+			
+			val = tilemap[4*((y*40)+x)];
+			
 		}
 	}

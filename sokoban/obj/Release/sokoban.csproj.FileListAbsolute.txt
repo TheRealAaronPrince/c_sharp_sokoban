@@ -2,3 +2,8 @@ C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\bin\Release\sokob
 C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\bin\Release\sokoban.exe
 C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\obj\Release\sokoban.csprojResolveAssemblyReference.cache
 C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\obj\Release\sokoban.exe
+C:\code\c_sharp_sokoban\sokoban\bin\Release\sokoban.exe.config
+C:\code\c_sharp_sokoban\sokoban\bin\Release\sokoban.exe
+C:\code\c_sharp_sokoban\sokoban\obj\Release\sokoban.csproj.CoreCompileInputs.cache
+C:\code\c_sharp_sokoban\sokoban\obj\Release\sokoban.exe
+C:\code\c_sharp_sokoban\sokoban\obj\Release\sokoban.csproj.AssemblyReference.cache

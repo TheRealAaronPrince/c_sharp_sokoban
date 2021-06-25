@@ -1,0 +1,7 @@
+C:\code\c_sharp_sokoban\sokoban\bin\Debug\sokoban.exe.config
+C:\code\c_sharp_sokoban\sokoban\bin\Debug\sokoban.exe
+C:\code\c_sharp_sokoban\sokoban\bin\Debug\sokoban.pdb
+C:\code\c_sharp_sokoban\sokoban\obj\Debug\sokoban.csproj.AssemblyReference.cache
+C:\code\c_sharp_sokoban\sokoban\obj\Debug\sokoban.csproj.CoreCompileInputs.cache
+C:\code\c_sharp_sokoban\sokoban\obj\Debug\sokoban.exe
+C:\code\c_sharp_sokoban\sokoban\obj\Debug\sokoban.pdb

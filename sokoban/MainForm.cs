@@ -34,7 +34,7 @@ namespace sokoban
 			tileGraphics.pushTileArray();
 			makeSprite();
 			reset();
-			this.BackgroundImage = tileGraphics.render.output;
+			this.BackgroundImage = render.output;
 			this.SetStyle(System.Windows.Forms.ControlStyles.UserPaint | System.Windows.Forms.ControlStyles.AllPaintingInWmPaint | System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer,true);
 			this.Refresh();
 			this.PreviewKeyDown  += new PreviewKeyDownEventHandler(keyInput);
@@ -95,9 +95,10 @@ namespace sokoban
 			{
 				x = (i % 8);
 				y = (i/8);
-				if(defSprites[direction,y,x] != 64)
+				var df = defSprites[direction, y, x];
+				if (df != 64)
 				{
-					tileGraphics.render.colorArray[(((y*320)+drawY)+(x+drawX))] = defSprites[direction,y,x];
+					tileGraphics.render.colorArray[(((y*320)+drawY)+(x+drawX))] = df;
 				}
 			}
 			tileGraphics.render.pixelPaint();
@@ -177,45 +178,45 @@ namespace sokoban
 				tileGraphics.forceUpdateTile(oldX,oldY);
 				tileGraphics.pushTileArray();
 				drawSprite();
-				this.BackgroundImage = tileGraphics.render.output;
+				this.BackgroundImage = render.output;
 				this.Refresh();
 				clearCheck();
 			}
 		}
 		private void customTiles()
 		{
-			string[,] newTile0 = new string[,]
+			int[,] newTile0 = new int[,]
 			{
-				{"f","f","f","f","f","f","f","f"},
-				{"f","f","b","b","b","b","b","f"},
-				{"f","b","f","b","b","b","b","f"},
-				{"f","b","b","f","b","b","b","f"},
-				{"f","b","b","b","f","b","b","f"},
-				{"f","b","b","b","b","f","b","f"},
-				{"f","b","b","b","b","b","f","f"},
-				{"f","f","f","f","f","f","f","f"}
+				{0,0,0,0,0,0,0,0},
+				{0,0,1,1,1,1,1,0},
+				{0,1,0,1,1,1,1,0},
+				{0,1,1,0,1,1,1,0},
+				{0,1,1,1,0,1,1,0},
+				{0,1,1,1,1,0,1,0},
+				{0,1,1,1,1,1,0,0},
+				{0,0,0,0,0,0,0,0}
 			};
-			string[,] newTile1 = new string[,]
+			int[,] newTile1 = new int[,]
 			{
-				{"b","b","b","b","b","b","b","b"},
-				{"b","f","b","b","b","b","f","b"},
-				{"b","b","f","b","b","f","b","b"},
-				{"b","b","b","f","f","b","b","b"},
-				{"b","b","b","f","f","b","b","b"},
-				{"b","b","f","b","b","f","b","b"},
-				{"b","f","b","b","b","b","f","b"},
-				{"b","b","b","b","b","b","b","b"}
+				{1,1,1,1,1,1,1,1},
+				{1,0,1,1,1,1,0,1},
+				{1,1,0,1,1,0,1,1},
+				{1,1,1,0,0,1,1,1},
+				{1,1,1,0,0,1,1,1},
+				{1,1,0,1,1,0,1,1},
+				{1,0,1,1,1,1,0,1},
+				{1,1,1,1,1,1,1,1}
 			};
-			string[,] newTile2 = new string[,]
+			int[,] newTile2 = new int[,]
 			{
-				{"f","f","f","f","f","f","f","f"},
-				{"f","b","b","b","b","b","b","b"},
-				{"f","b","b","b","b","b","b","b"},
-				{"f","b","b","b","b","b","b","b"},
-				{"f","f","f","f","f","f","f","f"},
-				{"b","b","b","b","f","b","b","b"},
-				{"b","b","b","b","f","b","b","b"},
-				{"b","b","b","b","f","b","b","b"}
+				{0,0,0,0,0,0,0,0},
+				{0,1,1,1,1,1,1,1},
+				{0,1,1,1,1,1,1,1},
+				{0,1,1,1,1,1,1,1},
+				{0,0,0,0,0,0,0,0},
+				{1,1,1,1,0,1,1,1},
+				{1,1,1,1,0,1,1,1},
+				{1,1,1,1,0,1,1,1}
 			};
 			int x;
 			int y;
@@ -762,7 +763,7 @@ namespace sokoban
 				int comp;
 				x = i % 40;
 				y = (i - x)/40;
-				tileGraphics.readTileArray(x,y,"index",out comp);
+				tileGraphics.readTileArray(x,y,out comp);
 				if(comp != levels[levelNo,y,x])
 				{
 					if(levels[levelNo,y,x] == 129 || levels[levelNo,y,x] == 0x20)
@@ -845,7 +846,7 @@ namespace sokoban
 				tileGraphics.pushTileArray();
 				direction = 0;
 				drawSprite();
-				this.BackgroundImage = tileGraphics.render.output;
+				this.BackgroundImage = render.output;
 				this.Refresh();
 				allLevels = false;
 		}
@@ -855,7 +856,7 @@ namespace sokoban
 			tileGraphics.directText("all levels completed",63,0,10,14);
 			tileGraphics.directText("press space to restart",63,0,9,15);
 			tileGraphics.pushTileArray();
-			this.BackgroundImage = tileGraphics.render.output; 
+			this.BackgroundImage = render.output; 
 			this.Refresh();
 			allLevels = true;
 		}
