@@ -1,4 +1,0 @@
-C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\bin\Release\sokoban.exe.config
-C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\bin\Release\sokoban.exe
-C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\obj\Release\sokoban.csprojResolveAssemblyReference.cache
-C:\Users\princ\Documents\SharpDevelop Projects\sokoban\sokoban\obj\Release\sokoban.exe
